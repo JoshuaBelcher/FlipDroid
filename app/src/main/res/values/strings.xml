@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">FlipDroid</string>
+    <string name="title_text">FlipDroid</string>
+    <string name="play_game">PLAY GAME</string>
+    <string name="scoreboard">SCOREBOARD</string>
+    <string name="settings">SETTINGS</string>
+    <string name="how_to_play">HOW TO PLAY</string>
+    <string name="number_of_flips">NUMBER OF FLIPS:</string>
+    <string name="go_back">BACK</string>
+    <string name="first_card">first card</string>
+    <string name="second_card">second card</string>
+    <string name="third_card">third card</string>
+    <string name="fourth_card">fourth card</string>
+    <string name="fifth_card">fifth card</string>
+    <string name="sixth_card">sixth card</string>
+    <string name="seventh_card">seventh card</string>
+    <string name="eighth_card">eighth card</string>
+    <string name="ninth_card">ninth card</string>
+    <string name="tenth_card">tenth card</string>
+    <string name="eleventh_card">eleventh card</string>
+    <string name="twelfth_card">twelfth card</string>
+</resources>

@@ -1,36 +1,20 @@
 package joshb.android.flipdroid
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.content.Intent
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity() {
+class Scoreboard : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_scoreboard)
     }
 
-    fun playButtonHandler (view: View) {
-        var intent= Intent(this, GameField:: class.java)
-        startActivity(intent)
-    }
-
-    fun scoreboardButtonHandler (view: View) {
-        var intent= Intent(this, Scoreboard:: class.java)
-        startActivity(intent)
-    }
-
-    fun settingsButtonHandler (view: View) {
-        var intent= Intent(this, Settings:: class.java)
-        startActivity(intent)
-    }
-
-    fun helpButtonHandler (view: View) {
-        var intent= Intent(this, Help:: class.java)
+    fun backButtonHandler (view: View) {
+        var intent= Intent(this, MainActivity:: class.java)
         startActivity(intent)
     }
 
@@ -42,7 +26,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item?.itemId){
 
-            R.id.act_scoreboard->{var intent= Intent(this, Scoreboard:: class.java)
+            R.id.act_main->{var intent= Intent(this, MainActivity:: class.java)
                 startActivity(intent)
                 return super.onOptionsItemSelected(item)
             }
@@ -64,5 +48,4 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
-
 }

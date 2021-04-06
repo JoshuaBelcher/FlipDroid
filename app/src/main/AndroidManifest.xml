@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.FlipDroid">
-        <activity android:name=".GameField"></activity>
+        <activity android:name=".Scoreboard"></activity>
+        <activity android:name=".Help" />
+        <activity android:name=".Settings" />
+        <activity android:name=".GameField" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

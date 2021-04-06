@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/act_main" android:title="Main"/>
+    <item android:id="@+id/act_gamefield" android:title="Play"/>
+    <item android:id="@+id/act_scoreboard" android:title="Scoreboard"/>
+    <item android:id="@+id/act_settings" android:title="Settings"/>
+    <item android:id="@+id/act_help" android:title="Help"/>
+</menu>

@@ -23,14 +23,15 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="high_score">High Score: 1200</string>
     <string name="current_score">Current Score: 900</string>
-    <string name="night_mode_on">Night Mode On</string>
+    <string name="on">On</string>
+    <string name="off">Off</string>
+    <string name="night_mode">Night Mode</string>
     <string name="fewest_flips">Fewest Flips</string>
     <string name="fastest_time">Fastest Time</string>
     <string name="choose_your_game_mode">Choose your game mode:</string>
     <string name="help_text1">Welcome to FlipDroid!</string>
 
-    <string name="help_text2">This game is a mobile version of the classic
-    "memory" matching game. Upon starting the game session, a deck of 12 cards will be shuffled then dealt face down
+    <string name="help_text2">This game is a mobile version of the classic &quot;memory&quot; matching game. Upon starting the game session, a deck of 12 cards will be shuffled then dealt face down
     onto the game field; each of these cards has a face image that matches only one other card in the deck.
     The player can then tap any two cards, one at a time, to flip them face up. If they match,
     the cards will remain face up for the rest of the game. Otherwise, they are turned back face down. The game is
@@ -38,14 +39,14 @@
     key is to commit to memory the location of each card!</string>
 
     <string name="help_text3">
-        Two different modes of play may be selected on the "Settings" screen. In the default mode, "Fewest Flips,"
-        the goal is to complete the game in the fewest sets of card flips possible. In "Fastest Time," the goal
+        Two different modes of play may be selected on the &quot;Settings&quot; screen. In the default mode, &quot;Fewest Flips,&quot;
+        the goal is to complete the game in the fewest sets of card flips possible. In &quot;Fastest Time,&quot; the goal
         is to complete the game in the shortest amount of time possible, regardless of how many flips are used.
         High scores (Number of Flips or Time Elapsed) are recorded separately for each mode.
     </string>
 
     <string name="help_text4">
-        The "Settings" screen also includes a toggle switch for activating the "Night Mode" theme, allowing for a more
+        The &quot;Settings&quot; screen also includes a toggle switch for activating the &quot;Night Mode&quot; theme, allowing for a more
         comfortable viewing experience in low-light conditions for some users.
     </string>
     <string name="high_scores">High Scores</string>

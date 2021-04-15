@@ -4,24 +4,26 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     tools:context=".score_tracker">
+
     <RelativeLayout
         android:id="@+id/score_fragment_content"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
         <TextView
             android:id="@+id/highScore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
             android:text="@string/high_score"
-            android:textSize="12sp"
-            android:layout_alignParentTop="true"/>
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/currentScore"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@id/highScore"
             android:text="@string/current_score"
-            android:textSize="12sp"
-            android:layout_alignParentBottom="true"/>
+            android:textSize="12sp" />
     </RelativeLayout>
 </FrameLayout>

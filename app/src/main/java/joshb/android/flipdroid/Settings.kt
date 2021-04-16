@@ -12,20 +12,19 @@ import android.widget.Switch
 import kotlinx.android.synthetic.main.activity_settings.*
 
 class Settings : AppCompatActivity() {
-    // Class variables for Saving/Loading Preferences & High Scores
+    // Class variables for Saving/Loading Preferences
     private val PREF_Name = "savedPrefs"
     private var editor: SharedPreferences.Editor?=null
-    private var loadedPref: SharedPreferences?=null
-
-    // Class variables for referencing widgets
-    private var themeSwitch: Switch? =null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_settings)
 
-        // get reference to widgets
-        themeSwitch = findViewById<Switch>(R.id.switch_theme)
+        // set reference for saved preferences
+        var loadedPref: SharedPreferences = getSharedPreferences(PREF_Name, 0)
+
+        // set handle for preferences editor and assign preferences to be edited
+        editor = (loadedPref as SharedPreferences).edit()
 
         // get Night Mode status passed from MainActivity
         var intent = getIntent()
@@ -36,25 +35,48 @@ class Settings : AppCompatActivity() {
         // if Night Mode was turned on by loaded preferences, the switch will not sit erroneously in
         // the "Off" position
         if (nightModeOn) {
-            themeSwitch?.isChecked = true
+            switch_theme.isChecked = true
         }
 
-        // set reference for saved preferences
-        loadedPref = getSharedPreferences(PREF_Name, 0)
+        // default selected game mode to "Fewest Flips"
+        var gameMode = "flips"
 
-        // set handle for preferences editor and assign preferences to be edited
-        editor = (loadedPref as SharedPreferences).edit()
+        // check loaded preferences for game mode data
+        if (loadedPref.contains("gameMode")) {
+            gameMode = loadedPref.getString("gameMode", "flips").toString()
+        }
+
+        // check the radio button corresponding to loaded game mode so that they match
+        if (gameMode == "flips") {
+            rdo_flip_mode.isChecked = true
+        } else if (gameMode == "speed") {
+            rdo_speed_mode.isChecked = true
+        }
 
     }
 
+    /*****************************************************************EVENT HANDLERS FOR WIDGETS AND MENU****************************************************/
+
+    // toggle Day/Night Mode and use editor to save choice in Shared Preferences
     fun themeToggleHandler (view: View) {
-        if(themeSwitch?.isChecked!!){
+        if(switch_theme.isChecked!!){
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             editor?.putBoolean("nightMode", true)
             editor?.commit()
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
             editor?.putBoolean("nightMode", false)
+            editor?.commit()
+        }
+    }
+
+    // toggle Fewest Flips/Fastest Time Game Mode and use editor to save choice in Shared Preferences
+    fun gameToggleHandler (view: View) {
+        if (rdo_flip_mode.isChecked) {
+            editor?.putString("gameMode", "flips")
+            editor?.commit()
+        } else if (rdo_speed_mode.isChecked) {
+            editor?.putString("gameMode", "speed")
             editor?.commit()
         }
     }

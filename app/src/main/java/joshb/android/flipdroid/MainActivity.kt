@@ -35,6 +35,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    /*****************************************************************EVENT HANDLERS FOR WIDGETS AND MENU****************************************************/
     fun playButtonHandler (view: View) {
         var intent= Intent(this, GameField:: class.java)
         startActivity(intent)

@@ -14,7 +14,25 @@ class GameField : AppCompatActivity() {
         setContentView(R.layout.activity_game_field)
     }
 
+
+
+
+
+
+
+    fun newGameHandler (view: View) {
+        // TODO: CODE TO INITIATE A NEW GAME
+        var currentGame = Game()
+    }
+
+    fun displayResultHandler (view: View) {
+        // TODO: CREATE ALERT DIALOG
+        // TODO: CODE TO DISPLAY THE RESULT OF THE GAME
+        // TODO: CODE TO OFFER CHOICE OF STARTING NEW GAME OR QUITTING
+    }
+
     fun backButtonHandler (view: View) {
+        // TODO: DESTROY GAME AND CARD OBJECTS BEFORE LOADING NEW INTENT
         var intent= Intent(this, MainActivity:: class.java)
         startActivity(intent)
     }

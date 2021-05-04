@@ -1,40 +1,82 @@
 package joshb.android.flipdroid
 
+import android.os.CountDownTimer
+import android.widget.ImageButton
+
 class Game {
     // Constants representing the total number of cards our deck can hold and, by extension, the number of matched pairs possible
-    private val TOTAL_CARDS: Int = 12
-    private val MATCHES_POSSIBLE: Int = TOTAL_CARDS / 2
+    companion object{
+        private val TOTAL_CARDS: Int = 12
+        val MATCHES_POSSIBLE: Int = TOTAL_CARDS / 2
+    }
 
     // The names of our various cards, stored in a basic array
-    val CARD_NAMES = arrayOf("floppy_disk", "floppy_disk", "vhs", "vhs", "cd", "cd",  "data_tape",
+    private val CARD_NAMES = arrayOf("floppy_disk", "floppy_disk", "vhs", "vhs", "cd", "cd",  "data_tape",
         "data_tape", "audio_cassette", "audio_cassette", "usb_thumb", "usb_thumb")
 
     // The Game Mode, "Fewest Flips" or "Fastest Time" that was chosen in "Settings" and saved in SharedPreferences
     private var gameMode: String = "flips" //TODO: EVENTUALLY THIS MUST BE DETERMINED BY LOADED PREFERENCES
 
-    // TODO: IMPLEMENT A SELECTION STATEMENT, BASED ON MODE, WHICH EITHER ZEROES(OR NULLS) FLIP SCORE OR
-    // TODO: SETS UP THE TIMER. RELEVANT HIGH SCORE WILL ALSO NEED TO BE DISPLAYED. THIS ALL PASSED INTO CONSTRUCTOR.
-
-    // Stores the names of the two cards that are flipped over each round
-    private var firstFlip: String? = null
-    private var secondFlip: String? = null
-
     // Number of successful matches made in this game session
-    private var matches: Int = 0
+    var matches: Int = 0
+
+    // Stores reference to the two cards that are flipped over each round and their corresponding buttons
+    var firstFlip: Card? = null
+        private set
+    var secondFlip: Card? = null
+        private set
+
+    var firstButton: ImageButton? = null
+        private set
+    var secondButton: ImageButton? = null
+        private set
 
     // The ArrayList that will hold the "deck" of Card objects that will be instantiated
-    private var deck = ArrayList<String>()
+    var deck = ArrayList<Card>()
+        private set
 
     /*
-    TODO: IMPLEMENT IMPROVED CONSTRUCTOR METHOD
-    constructor(NEEDS GAME MODE AND HIGH SCORE) {
+    TODO: IMPLEMENT IMPROVED CONSTRUCTOR METHOD THAT INCORPORATES GAME MODE AND HIGH SCORES
+    constructor() {
+        // TODO: IMPLEMENT A SELECTION STATEMENT, BASED ON MODE, WHICH EITHER ZEROES(OR NULLS) FLIP SCORE OR
+        // TODO: SETS UP THE TIMER. RELEVANT HIGH SCORE AND CURRENT SCORE (FLIPS OR TIME) WILL ALSO NEED TO BE DISPLAYED.
     }
     */
 
-    private fun setCardButtonHandlers () {
-        // TODO: HANDLE WIRING OF ONCLICK EVENT HANDLERS FOR IMAGE BUTTONS
-        // TODO: Game needs to wire each individual handler to each buttons, while generating each
-        // TODO: Card object, that way the handler can accept that object as parameter
+    // Instantiates Card objects using the provided names then adds them into the deck ArrayList
+    fun fillDeck () {
+        for (name in CARD_NAMES) {
+            deck.add(Card(name))
+        }
+    }
+
+    // Stores the result (Card object and associated ImageButton) of both consecutive flips
+    // then compares the Card names to see if they match
+    fun checkMatch (card: Card, button: ImageButton): String {
+        var matched: String = "waiting"
+
+        if (firstFlip == null) {
+            firstFlip = card
+            firstButton = button
+        } else {
+            secondFlip = card
+            secondButton = button
+
+            matched = if (firstFlip!!.cardName == secondFlip!!.cardName) {
+                "yes"
+            } else {
+                "no"
+            }
+        }
+        return matched
+    }
+
+    // Resets the stored flip results for the next round
+    fun resetRound () {
+        firstFlip = null
+        firstButton = null
+        secondFlip = null
+        secondButton = null
     }
 
 }

@@ -1,51 +1,53 @@
 package joshb.android.flipdroid
 
-class Card {
-    // Constants representing the opacity value (alpha attribute) to be used for displaying solid and faded card ImageButtons
-    private val SOLID_ALPHA: String = "1"
-    private val FADED_ALPHA: String = "0.25"
+class Card(name: String) {
 
+    companion object {
+        // Constants representing the opacity value (alpha attribute) to be used for modifying the display of matched card ImageButtons
+        // that are "out-of-play"
+        val FADED_ALPHA: Float = 0.25f
+        val SOLID_ALPHA: Float = 1f
+        // Resource string ID of image that will be displayed on the ImageButton when flipped face down
+        val backImage: String = "cardback"
+    }
     // Name of the card, taken from the array in the Game object
-    private var cardName: String? = null
-
-    // String ID of the ImageButton that will correspond to this Card object
-    private var button: String? = null
-
+    var cardName: String? = name
+        private set
     // Resource string ID of image that will be displayed on the ImageButton when flipped face up
-    private var faceImage: String? = null
-
-    // Resource string ID of image that will be displayed on the ImageButton when flipped face down
-    private var backImage: String? = "@drawable/cardback"
-
+    var faceImage: String? = null
+        private set
     // Boolean representing whether card is "face up" or not
-    private var faceUp: Boolean = false
+    var faceUp: Boolean = false
+        private set
+    // String ID of the ImageButton that will correspond to this Card object
+    var button: String? = null
+        private set
 
-    // Index location of this card once inserted in the Game
-    // object's deck array
-    var deckIndex: Int? = null
-
-
-    constructor(name: String) {
-        this.cardName = name
+    init {
         assignImage(cardName!!)
+    }
+
+    // Change card state between face up and face down
+    fun flip() {
+        faceUp = !faceUp
     }
 
     // Decide the id of ImageButton to be used, based on the Card object's
     // location index in the deck array
     fun assignButton(deckIndex: Int) {
         when (deckIndex){
-            0 -> this.button = "@+id/imageButton1"
-            1 -> this.button = "@+id/imageButton2"
-            2 -> this.button = "@+id/imageButton3"
-            3 -> this.button = "@+id/imageButton4"
-            4 -> this.button = "@+id/imageButton5"
-            5 -> this.button = "@+id/imageButton6"
-            6 -> this.button = "@+id/imageButton7"
-            7 -> this.button = "@+id/imageButton8"
-            8 -> this.button = "@+id/imageButton9"
-            9 -> this.button = "@+id/imageButton10"
-            10 -> this.button = "@+id/imageButton11"
-            11 -> this.button = "@+id/imageButton12"
+            0 -> this.button = "imageButton1"
+            1 -> this.button = "imageButton2"
+            3 -> this.button = "imageButton4"
+            4 -> this.button = "imageButton5"
+            2 -> this.button = "imageButton3"
+            5 -> this.button = "imageButton6"
+            6 -> this.button = "imageButton7"
+            7 -> this.button = "imageButton8"
+            8 -> this.button = "imageButton9"
+            9 -> this.button = "imageButton10"
+            10 -> this.button = "imageButton11"
+            11 -> this.button = "imageButton12"
         }
     }
 
@@ -53,12 +55,12 @@ class Card {
     // based on the Card's name property
     private fun assignImage(cardName: String) {
         when (cardName) {
-            "floppy_disk" -> this.faceImage = "@drawable/floppydisk"
-            "vhs" -> this.faceImage = "@drawable/vhstape"
-            "cd" -> this.faceImage = "@drawable/compactdisc"
-            "data_tape" -> this.faceImage = "@drawable/datatape"
-            "audio_cassette" -> this.faceImage = "@drawable/cassette"
-            "usb_thumb" -> this.faceImage = "@drawable/usbflash"
+            "floppy_disk" -> this.faceImage = "floppydisk"
+            "vhs" -> this.faceImage = "vhstape"
+            "cd" -> this.faceImage = "compactdisc"
+            "data_tape" -> this.faceImage = "datatape"
+            "audio_cassette" -> this.faceImage = "cassette"
+            "usb_thumb" -> this.faceImage = "usbflash"
         }
     }
 }

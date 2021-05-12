@@ -16,7 +16,7 @@
         android:adjustViewBounds="true"
         android:contentDescription="@string/fourth_card"
         android:scaleType="fitCenter"
-        android:src="@drawable/floppydisk"
+        android:src="@drawable/cardback"
         app:layout_constraintStart_toEndOf="@+id/imageButton3"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -30,7 +30,7 @@
         android:adjustViewBounds="true"
         android:contentDescription="@string/fifth_card"
         android:scaleType="fitCenter"
-        android:src="@drawable/cassette"
+        android:src="@drawable/cardback"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageButton1" />
 
@@ -44,7 +44,7 @@
         android:adjustViewBounds="true"
         android:contentDescription="@string/sixth_card"
         android:scaleType="fitCenter"
-        android:src="@drawable/floppydisk"
+        android:src="@drawable/cardback"
         app:layout_constraintStart_toEndOf="@+id/imageButton5"
         app:layout_constraintTop_toBottomOf="@+id/imageButton2" />
 
@@ -58,7 +58,7 @@
         android:adjustViewBounds="true"
         android:contentDescription="@string/seventh_card"
         android:scaleType="fitCenter"
-        android:src="@drawable/compactdisc"
+        android:src="@drawable/cardback"
         app:layout_constraintStart_toEndOf="@+id/imageButton6"
         app:layout_constraintTop_toBottomOf="@+id/imageButton3" />
 
@@ -72,7 +72,7 @@
         android:adjustViewBounds="true"
         android:contentDescription="@string/eighth_card"
         android:scaleType="fitCenter"
-        android:src="@drawable/vhstape"
+        android:src="@drawable/cardback"
         app:layout_constraintStart_toEndOf="@+id/imageButton7"
         app:layout_constraintTop_toBottomOf="@+id/imageButton4" />
 
@@ -86,7 +86,7 @@
         android:adjustViewBounds="true"
         android:contentDescription="@string/ninth_card"
         android:scaleType="fitCenter"
-        android:src="@drawable/compactdisc"
+        android:src="@drawable/cardback"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageButton5" />
 
@@ -100,7 +100,7 @@
         android:adjustViewBounds="true"
         android:contentDescription="@string/tenth_card"
         android:scaleType="fitCenter"
-        android:src="@drawable/vhstape"
+        android:src="@drawable/cardback"
         app:layout_constraintStart_toEndOf="@+id/imageButton9"
         app:layout_constraintTop_toBottomOf="@+id/imageButton6" />
 
@@ -114,7 +114,7 @@
         android:adjustViewBounds="true"
         android:contentDescription="@string/eleventh_card"
         android:scaleType="fitCenter"
-        android:src="@drawable/usbflash"
+        android:src="@drawable/cardback"
         app:layout_constraintStart_toEndOf="@+id/imageButton10"
         app:layout_constraintTop_toBottomOf="@+id/imageButton7" />
 
@@ -128,7 +128,7 @@
         android:adjustViewBounds="true"
         android:contentDescription="@string/twelfth_card"
         android:scaleType="fitCenter"
-        android:src="@drawable/datatape"
+        android:src="@drawable/cardback"
         app:layout_constraintStart_toEndOf="@+id/imageButton11"
         app:layout_constraintTop_toBottomOf="@+id/imageButton8" />
 
@@ -142,7 +142,7 @@
         android:adjustViewBounds="true"
         android:contentDescription="@string/second_card"
         android:scaleType="fitCenter"
-        android:src="@drawable/datatape"
+        android:src="@drawable/cardback"
         app:layout_constraintStart_toEndOf="@+id/imageButton1"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -156,7 +156,7 @@
         android:adjustViewBounds="true"
         android:contentDescription="@string/third_card"
         android:scaleType="fitCenter"
-        android:src="@drawable/usbflash"
+        android:src="@drawable/cardback"
         app:layout_constraintStart_toEndOf="@+id/imageButton2"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -167,7 +167,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="32dp"
-        android:text="@string/number_of_flips"
+        android:text="@string/fewest_flips"
         app:layout_constraintStart_toEndOf="@+id/imageButton4"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -181,7 +181,7 @@
         android:adjustViewBounds="true"
         android:contentDescription="@string/first_card"
         android:scaleType="fitCenter"
-        android:src="@drawable/cassette"
+        android:src="@drawable/cardback"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -198,7 +198,7 @@
         app:layout_constraintStart_toEndOf="@+id/imageButton12" />
 
     <fragment
-        android:id="@+id/land_score_fragment"
+        android:id="@+id/score_fragment"
         android:name="joshb.android.flipdroid.score_tracker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

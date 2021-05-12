@@ -2,7 +2,7 @@ package joshb.android.flipdroid
 
 import android.content.DialogInterface
 import android.content.Intent
-import android.media.Image
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -10,13 +10,38 @@ import android.view.*
 import android.widget.ImageButton
 import androidx.appcompat.app.AlertDialog
 import kotlinx.android.synthetic.main.activity_game_field.*
+import kotlinx.android.synthetic.main.fragment_score_tracker.*
 
 class GameField : AppCompatActivity() {
+
+    // Class variables for Loading Game Mode and High Scores
+    private val PREF_Name = "savedPrefs"
+    private var gameMode: String? = null
+    private var highScore: Int? = null
+    private var highScoreDisplay: String? = null
+    private var currentScoreDisplay: String? = null
+    private var loadedPref: SharedPreferences? = null
+    private var editor: SharedPreferences.Editor?=null
+
+    private var touchDisabled: Boolean = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game_field)
 
-        startNewGame()
+        // set handles for saved preferences
+        loadedPref = getSharedPreferences(PREF_Name, 0)
+
+        // set handle for preferences editor and assign preferences to be edited
+        editor = (loadedPref as SharedPreferences).edit()
+
+        // check loaded preferences for Game Mode data
+        if (loadedPref!!.contains("gameMode")) {
+            gameMode = loadedPref!!.getString("gameMode", "flips")
+        }
+
+        // Instantiate the Game object, passing in the Game Mode and High Score
+        startNewGame(gameMode)
     }
 
     // When touchDisabled is "true," this prevents any touch events from being handled by the views in the activity
@@ -28,25 +53,39 @@ class GameField : AppCompatActivity() {
         }
     }
 
-    private var touchDisabled: Boolean = false
+    // Instantiates a new game session (Game object), displays High Score, fills the deck with Card objects,
+    // shuffles the deck, then "deals" them by associated each card ImageButton with an event handler
+    private fun startNewGame (gameMode: String?) {
+        // check loaded preferences for relevant High Score data
+        if (gameMode == "flips" || gameMode == null) {
+            if (loadedPref?.contains("flipScore") == true) {
+                highScore = loadedPref!!.getInt("flipScore", 30)
+                // Set flip score counter to initial value
+                score_fragment.currentScore.text = getResources().getString(R.string.current_score) + "0"
+            }
+        } else if (gameMode == "speed") {
+            if (loadedPref?.contains("timeScore") == true) {
+                highScore = loadedPref!!.getInt("timeScore", 30)
+            }
+        }
 
-    // Instantiates a new game session (Game object), fills the deck with Card objects, shuffles the deck,
-    // then "deals" them by associated each card ImageButton with an event handler
-    private fun startNewGame () {
-        val currentGame = Game()
+        highScoreDisplay = getResources().getString(R.string.high_score)
+
+        highScoreDisplay += highScore.toString()
+
+        score_fragment.highScore.text = highScoreDisplay
+        val currentGame = Game(gameMode)
         currentGame.fillDeck()
         currentGame.deck.shuffle()
         setCardButtonHandlers(currentGame)
     }
 
     private fun displayResultHandler () {
-        // TODO: CREATE ALERT DIALOG THAT WILL ANNOUNCE A VICTORY THEN
-        // TODO: OFFER THE CHOICE OF STARTING A NEW GAME OR QUITTING BACK TO THE MAIN MENU
         val resultAlert = AlertDialog.Builder(this)
         resultAlert.setTitle("All cards matched!")
         resultAlert.setMessage("Do you want to play again?")
         resultAlert.setPositiveButton("YES") {
-                dialogInterface: DialogInterface, i: Int -> startNewGame()
+                dialogInterface: DialogInterface, i: Int -> startNewGame(gameMode)
         }
         resultAlert.setNegativeButton("NO") {
                 dialogInterface: DialogInterface, i: Int ->
@@ -79,6 +118,9 @@ class GameField : AppCompatActivity() {
                 // Check to see if the flipped cards are a matched pair
                 val result = currentGame.checkMatch(card, cardButton)
 
+                // Update score for "Fewest Flips" Game Mode
+                score_fragment.currentScore.text = getResources().getString(R.string.current_score) + currentGame.flips.toString()
+
                 if (result == "no") {
                     // If no match, reset for next round after brief delay
                     delayTouch(currentGame)
@@ -94,6 +136,14 @@ class GameField : AppCompatActivity() {
                     if (currentGame.matches == Game.MATCHES_POSSIBLE) {
                         resetCardImages()
                         touchDisabled = false
+                        // Update High Score in SavedPreferences as needed
+                        if (gameMode == "flips" || gameMode == null) {
+                            if (highScore == null || (currentGame.flips < highScore!!)) {
+                                editor?.putInt("flipScore", currentGame.flips)
+                                editor?.commit()
+                            }
+                        }
+                        // TODO: ADD CODE FOR FASTEST TIME MODE
                         displayResultHandler()
                     } else {
                         touchDisabled = false

@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    // Class variables for Loading Preferences & High Scores
+    // Class variables for Loading Preferences
     private val PREF_Name = "savedPrefs"
     private var nightModeOn = false
 

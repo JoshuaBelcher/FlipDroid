@@ -15,10 +15,13 @@ class Game {
         "data_tape", "audio_cassette", "audio_cassette", "usb_thumb", "usb_thumb")
 
     // The Game Mode, "Fewest Flips" or "Fastest Time" that was chosen in "Settings" and saved in SharedPreferences
-    private var gameMode: String = "flips" //TODO: EVENTUALLY THIS MUST BE DETERMINED BY LOADED PREFERENCES
+    private var gameMode: String? = null
 
     // Number of successful matches made in this game session
     var matches: Int = 0
+
+    // Number of flips made in this game session
+    var flips: Int = 0
 
     // Stores reference to the two cards that are flipped over each round and their corresponding buttons
     var firstFlip: Card? = null
@@ -35,13 +38,15 @@ class Game {
     var deck = ArrayList<Card>()
         private set
 
-    /*
-    TODO: IMPLEMENT IMPROVED CONSTRUCTOR METHOD THAT INCORPORATES GAME MODE AND HIGH SCORES
-    constructor() {
+
+    //TODO: IMPLEMENT IMPROVED CONSTRUCTOR METHOD THAT INCORPORATES GAME MODE AND HIGH SCORES
+    constructor(gameMode: String?) {
         // TODO: IMPLEMENT A SELECTION STATEMENT, BASED ON MODE, WHICH EITHER ZEROES(OR NULLS) FLIP SCORE OR
         // TODO: SETS UP THE TIMER. RELEVANT HIGH SCORE AND CURRENT SCORE (FLIPS OR TIME) WILL ALSO NEED TO BE DISPLAYED.
+
+        this.gameMode = gameMode
     }
-    */
+
 
     // Instantiates Card objects using the provided names then adds them into the deck ArrayList
     fun fillDeck () {
@@ -53,6 +58,11 @@ class Game {
     // Stores the result (Card object and associated ImageButton) of both consecutive flips
     // then compares the Card names to see if they match
     fun checkMatch (card: Card, button: ImageButton): String {
+        // Increment number of flips if playing "Fewest Flips" Game Mode
+        if (gameMode == "flips") {
+            flips = flips.inc()
+        }
+
         var matched: String = "waiting"
 
         if (firstFlip == null) {

@@ -5,7 +5,6 @@
     <string name="scoreboard">SCOREBOARD</string>
     <string name="settings">SETTINGS</string>
     <string name="how_to_play">HOW TO PLAY</string>
-    <string name="number_of_flips">NUMBER OF FLIPS:</string>
     <string name="go_back">BACK</string>
     <string name="first_card">first card</string>
     <string name="second_card">second card</string>
@@ -21,8 +20,8 @@
     <string name="twelfth_card">twelfth card</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="high_score">High Score: 1200</string>
-    <string name="current_score">Current Score: 900</string>
+    <string name="high_score">High Score: </string>
+    <string name="current_score">Current Score: </string>
     <string name="on">On</string>
     <string name="off">Off</string>
     <string name="night_mode">Night Mode</string>

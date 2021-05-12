@@ -6,7 +6,9 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.os.SystemClock
 import android.view.*
+import android.widget.Chronometer
 import android.widget.ImageButton
 import androidx.appcompat.app.AlertDialog
 import kotlinx.android.synthetic.main.activity_game_field.*
@@ -18,12 +20,13 @@ class GameField : AppCompatActivity() {
     private val PREF_Name = "savedPrefs"
     private var gameMode: String? = null
     private var highScore: Int? = null
+    private var bestTime: String? = null
     private var highScoreDisplay: String? = null
-    private var currentScoreDisplay: String? = null
     private var loadedPref: SharedPreferences? = null
     private var editor: SharedPreferences.Editor?=null
 
     private var touchDisabled: Boolean = false
+    private var timerRunning: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,22 +59,27 @@ class GameField : AppCompatActivity() {
     // Instantiates a new game session (Game object), displays High Score, fills the deck with Card objects,
     // shuffles the deck, then "deals" them by associated each card ImageButton with an event handler
     private fun startNewGame (gameMode: String?) {
+        highScoreDisplay = getResources().getString(R.string.high_score)
+
         // check loaded preferences for relevant High Score data
         if (gameMode == "flips" || gameMode == null) {
             if (loadedPref?.contains("flipScore") == true) {
                 highScore = loadedPref!!.getInt("flipScore", 30)
-                // Set flip score counter to initial value
-                score_fragment.currentScore.text = getResources().getString(R.string.current_score) + "0"
             }
+
+            highScoreDisplay += highScore.toString()
+
+            // Set flip score counter to initial value
+            score_fragment.currentScore.text = getResources().getString(R.string.current_score) + "0"
+
         } else if (gameMode == "speed") {
             if (loadedPref?.contains("timeScore") == true) {
-                highScore = loadedPref!!.getInt("timeScore", 30)
+                bestTime = loadedPref!!.getString("timeScore", "30:00")
             }
+            highScoreDisplay += bestTime
+            // Start the game session's timer
+            toggleTimer(gameTimer)
         }
-
-        highScoreDisplay = getResources().getString(R.string.high_score)
-
-        highScoreDisplay += highScore.toString()
 
         score_fragment.highScore.text = highScoreDisplay
         val currentGame = Game(gameMode)
@@ -119,7 +127,9 @@ class GameField : AppCompatActivity() {
                 val result = currentGame.checkMatch(card, cardButton)
 
                 // Update score for "Fewest Flips" Game Mode
-                score_fragment.currentScore.text = getResources().getString(R.string.current_score) + currentGame.flips.toString()
+                if (gameMode == "flips") {
+                    score_fragment.currentScore.text = getResources().getString(R.string.current_score) + currentGame.flips.toString()
+                }
 
                 if (result == "no") {
                     // If no match, reset for next round after brief delay
@@ -136,14 +146,24 @@ class GameField : AppCompatActivity() {
                     if (currentGame.matches == Game.MATCHES_POSSIBLE) {
                         resetCardImages()
                         touchDisabled = false
-                        // Update High Score in SavedPreferences as needed
+                        // Compare current number of flips to High Score
+                        // and update High Score in SavedPreferences as needed
                         if (gameMode == "flips" || gameMode == null) {
                             if (highScore == null || (currentGame.flips < highScore!!)) {
                                 editor?.putInt("flipScore", currentGame.flips)
                                 editor?.commit()
                             }
+                        } else if (gameMode == "speed") {
+                            // Compare the current elasped time with the High Score time
+                            // and update High Score in SavedPreferences as needed
+                            if (bestTime == null || (convertTime(gameTimer.text as String) < convertTime(bestTime!!))) {
+                                editor?.putString("timeScore", gameTimer.text as String)
+                                editor?.commit()
+                            }
+                            // Stop and reset the game session's timer
+                            toggleTimer(gameTimer)
                         }
-                        // TODO: ADD CODE FOR FASTEST TIME MODE
+
                         displayResultHandler()
                     } else {
                         touchDisabled = false
@@ -212,6 +232,25 @@ class GameField : AppCompatActivity() {
                 (Card.backImage, "drawable", getPackageName()))
             button.alpha = Card.SOLID_ALPHA
         }
+    }
+
+    // Turns the game's timer (Chronometer widget) on and off when in "Fastest Time" Game Mode
+    private fun toggleTimer(timer: Chronometer) {
+        timer.setBase(SystemClock.elapsedRealtime())
+        if (!timerRunning) {
+            timer.start()
+            timerRunning = true
+        } else {
+            timer.stop()
+            timerRunning = false
+        }
+    }
+
+    // Converts the string display of a time (in XX:XX minutes/seconds format) to an integer representing the total seconds that can be used in calculations
+    private fun convertTime(timeString: String): Int {
+        val delimiter = ":"
+        val list = timeString.split(delimiter)
+        return (list[0].toInt() * 60) + (list[1].toInt())
     }
 
     // TODO: DO ALL NAVIGATION BUTTONS ON THIS ACTIVITY NEED CODE TO ENSURE GAME AND CARD OBJECTS ARE DESTROYED BEFORE

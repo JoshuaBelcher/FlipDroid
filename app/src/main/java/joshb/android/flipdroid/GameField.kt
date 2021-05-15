@@ -43,6 +43,11 @@ class GameField : AppCompatActivity() {
             gameMode = loadedPref!!.getString("gameMode", "flips")
         }
 
+        // default Game Mode is set in case a SharedPreference with null value was retrieved
+        if (gameMode == null) {
+            gameMode = "flips"
+        }
+
         // Instantiate the Game object, passing in the Game Mode and High Score
         startNewGame(gameMode)
     }
@@ -59,13 +64,16 @@ class GameField : AppCompatActivity() {
     // Instantiates a new game session (Game object), displays High Score, fills the deck with Card objects,
     // shuffles the deck, then "deals" them by associated each card ImageButton with an event handler
     private fun startNewGame (gameMode: String?) {
+
         highScoreDisplay = getResources().getString(R.string.high_score)
 
-        // check loaded preferences for relevant High Score data
-        if (gameMode == "flips" || gameMode == null) {
+        // check loaded preferences for relevant High Score data and set text of game mode title display
+        if (gameMode == "flips") {
             if (loadedPref?.contains("flipScore") == true) {
                 highScore = loadedPref!!.getInt("flipScore", 30)
             }
+
+            txt_modeName.text = getResources().getString(R.string.fewest_flips)
 
             highScoreDisplay += highScore.toString()
 
@@ -76,6 +84,9 @@ class GameField : AppCompatActivity() {
             if (loadedPref?.contains("timeScore") == true) {
                 bestTime = loadedPref!!.getString("timeScore", "30:00")
             }
+
+            txt_modeName.text = getResources().getString(R.string.fastest_time)
+
             highScoreDisplay += bestTime
             // Start the game session's timer
             toggleTimer(gameTimer)
@@ -254,7 +265,7 @@ class GameField : AppCompatActivity() {
     }
 
     // TODO: DO ALL NAVIGATION BUTTONS ON THIS ACTIVITY NEED CODE TO ENSURE GAME AND CARD OBJECTS ARE DESTROYED BEFORE
-    // TODO: LOADING NEXT ACTIVITY, OR WILL KOTLIN GARBAGE COLLECTION DO THIS AUTOMATICALLY WHEN THIS ACTIVITY IS ABANDONED?
+    // TODO: LOADING NEXT ACTIVITY, OR WILL KOTLIN GARBAGE COLLECTION DO THIS AUTOMATICALLY WHEN THIS ACTIVITY IS NAVIGATED AWAY FROM?
 
     fun backButtonHandler (view: View) {
         val intent= Intent(this, MainActivity:: class.java)

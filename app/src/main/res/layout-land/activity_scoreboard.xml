@@ -42,26 +42,6 @@
         app:layout_constraintTop_toBottomOf="@+id/txt_flips_title" />
 
     <TextView
-        android:id="@+id/txt_flips_2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="@string/flips_2"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/txt_flips_1"
-        app:layout_constraintTop_toBottomOf="@+id/txt_flips_1" />
-
-    <TextView
-        android:id="@+id/txt_flips_3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="@string/flips_3"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/txt_flips_2"
-        app:layout_constraintTop_toBottomOf="@+id/txt_flips_2" />
-
-    <TextView
         android:id="@+id/txt_time_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -84,26 +64,6 @@
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="@+id/txt_time_title"
         app:layout_constraintTop_toBottomOf="@+id/txt_time_title" />
-
-    <TextView
-        android:id="@+id/txt_time_2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="@string/time_2"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/txt_time_1"
-        app:layout_constraintTop_toBottomOf="@+id/txt_time_1" />
-
-    <TextView
-        android:id="@+id/txt_time_3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="@string/time_3"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/txt_time_2"
-        app:layout_constraintTop_toBottomOf="@+id/txt_time_2" />
 
     <Button
         android:id="@+id/btn_back_scoreboard"

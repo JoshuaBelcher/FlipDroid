@@ -208,7 +208,7 @@
         app:layout_constraintBottom_toTopOf="@+id/imageButton5"
         app:layout_constraintEnd_toStartOf="@+id/imageButton3"
         app:layout_constraintStart_toEndOf="@+id/imageButton1"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_modeName" />
 
     <ImageButton
         android:id="@+id/imageButton3"
@@ -227,10 +227,10 @@
         app:layout_constraintBottom_toTopOf="@+id/imageButton6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/imageButton2"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_modeName" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/txt_modeName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -256,7 +256,7 @@
         app:layout_constraintBottom_toTopOf="@+id/imageButton4"
         app:layout_constraintEnd_toStartOf="@+id/imageButton2"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/txt_modeName" />
 
     <Button
         android:id="@+id/btn_back"
